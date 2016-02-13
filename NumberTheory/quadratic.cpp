@@ -1,4 +1,6 @@
 #include <cstdio>
+#include <iostream>
+using namespace std;
 #include <ctime>
 #include <cstdlib>
 typedef long long LL;
@@ -31,6 +33,10 @@ LL L(LL a) {
 }
 LL solve(LL n) {
 	//P == 2 special judge
+	if (P == 2) {
+		if (n == 1) return 1;
+		else return -1;
+	}
 	if (!L(n)) return -1;
 	LL a;
 	while(1) {
@@ -40,10 +46,26 @@ LL solve(LL n) {
 	}
 	return qk(Q(a, 1), (P + 1) / 2);
 }
-		
+
 int main() {
 	srand(time(0));
-	P = 64;
-	printf("%d\n", solve(8));
+	int T;
+	scanf("%d", &T);
+	while(T --) {
+		int a, n, t;
+		scanf("%d%d", &a, &n);
+		a %= n;
+		P = n;
+		t = solve(a);
+		if (t == -1)
+			puts("No root");
+		else {
+			if (t == n - t)
+				printf("%d\n", t);
+			else
+				printf("%d %d\n", min(t, n - t), max(t, n - t));
+		}
+	}
 	return 0;
 }
+

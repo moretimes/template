@@ -6,14 +6,9 @@
 #include <ext/pb_ds/tree_policy.hpp> // Including tree_order_statistics_node_update
 #include <ext/pb_ds/detail/standard_policies.hpp>
 using namespace std;
+using namespace __gnu_pbds; 
 const int N = 101000;
-__gnu_pbds::tree<
-	int,
-	__gnu_pbds::null_type,
-	less<int>,
-	__gnu_pbds::rb_tree_tag,
-	__gnu_pbds::tree_order_statistics_node_update>
-st[N], ed[N];
+tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> st[N], ed[N];
 int t[N], x[N], T, a[N], b[N], b_c;
 int main ()
 {

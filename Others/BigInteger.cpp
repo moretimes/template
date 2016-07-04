@@ -45,6 +45,19 @@ Num operator+ (const Num& a, const Num& b) {
 	if (c[c.len + 1]) c.len++;
 	return c;
 }
+Num operator- (const Num &a, const Num &b) {
+	Num c;
+	c.len = max(a.len, b.len);
+	for(int i = 1; i <= c.len; i++) {
+		c[i] += a[i] - b[i];
+		if(c[i] < 0) {
+			c[i + 1]--;
+			c[i] += base;
+		}
+	}
+	while(c[c.len] == 0 && c.len > 1) c.len--;
+	return c;
+}
 Num operator* (const Num& a, const Num& b) {
 	Num c;
 	c.len = a.len + b.len - 1;
@@ -55,6 +68,7 @@ Num operator* (const Num& a, const Num& b) {
 			c[i + j - 1] %= base;
 		}
 	if (c[c.len + 1]) c.len++;
+	while(c[c.len] == 0 && c.len > 1) c.len--;
 	return c;
 }
 bool operator< (const Num& a, const Num& b) {

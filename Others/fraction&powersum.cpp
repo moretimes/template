@@ -22,22 +22,44 @@ struct Q {
 			b = -b;
 		}
 	}
-	Q operator + (const Q& x) {
+	Q operator + (const Q& x) const {
 		Q c;
 		c.a = a * x.b + x.a * b;
 		c.b = b * x.b;
 		c.uni();
 		return c;
 	}
-	Q operator * (const Q& x) {
+	Q operator - (const Q& x) const {
+		Q c;
+		c.a = a * x.b - x.a * b;
+		c.b = b * x.b;
+		c.uni();
+		return c;
+	}
+	Q operator * (const Q& x) const {
 		Q c;
 		c.a = a * x.a;
 		c.b = b * x.b;
 		c.uni();
 		return c;
 	}
+	Q operator / (const Q& x) const {
+		Q c;
+		c.a = a * x.b;
+		c.b = b * x.a;
+		c.uni();
+		return c;
+	}
+	bool operator==(int x) {
+		uni();
+		return a == 0;
+	}
+	bool operator!=(int x) {
+		uni();
+		return a != 0;
+	}
 	void print() {
-		printf("%lld/%lld ", a, b);
+		printf("X = %lld/%lld\n", a, b);
 	}
 }C[N][N], B[N];
 int main() {

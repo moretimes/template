@@ -1,19 +1,23 @@
+int S, T;
 struct Flow {
-	int key[M], next[M], head[N], cnt, cost[M], f[M];
+	typedef LL int;
+	const int INF = 0x3f3f3f3f;
+	int key[M], next[M], head[N], cnt, f[M];
 	int pe[N], pv[N], S, T;
-	int dis[N], q[N];
+	int  q[N];
+	LL dis[N], cost[M];
 	bool vis[N];
-	void init(int s, int t) {
-		S = s, T = t;
+	void init() {
 		cnt = 0;
 		memset (head, -1, sizeof head);
 	}
-	void add(int x, int y, int w, int flow) {
+	void add(int x, int y, LL w, int flow) {
 		key[cnt] = y;
 		next[cnt] = head[x];
 		cost[cnt] = w;
 		f[cnt] = flow;
 		head[x] = cnt ++;
+		
 		key[cnt] = x;
 		next[cnt] = head[y];
 		cost[cnt] = -w;
@@ -21,7 +25,7 @@ struct Flow {
 		head[y] = cnt ++;
 	}
 	bool spfa() {
-		memset (dis, 0x3f, sizeof dis);
+		rep(i, S, T) dis[i] = INF;
 		memset (vis, 0, sizeof vis);
 		int h = 1, t = 2;
 		q[1] = S;
@@ -45,7 +49,7 @@ struct Flow {
 		}
 		return dis[T] != INF;
 	}
-	int z() {
+	LL z() {
 		int tmp = INF;
 		for (int i = T; i != S; i = pv[i])
 			tmp = min(tmp, f[pe[i]]);
@@ -53,8 +57,8 @@ struct Flow {
 			f[pe[i]] -= tmp, f[pe[i] ^ 1] += tmp;
 		return dis[T] * tmp;
 	}
-	int work() {
-		int ans = 0;
+	LL work() {
+		LL ans = 0;
 		while(spfa())
 			ans += z();
 		return ans;
